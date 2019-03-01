@@ -1,0 +1,30 @@
+server:
+  port: ${server_port:5809}
+
+websocket:
+  termination:
+    enabled: true
+    endpoint: "/ws"
+    order: -1
+    ping:
+      enabled: true
+      interval: 10
+      retries: 3
+      supress-log: true
+    scan:
+      api-package: sample.api
+
+management:
+  endpoints:
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: "*"
+        exclude: shutdown,threaddump
+      base-path: /actuator
+
+logging:
+  level:
+    root: INFO
+    zjtech.websocket.termination: debug

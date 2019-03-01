@@ -1,0 +1,66 @@
+/**
+ * Apply global settings to all projects
+ */
+buildscript {
+  apply from: 'dependencies.gradle'
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath libs.'spring-boot-gradle-plugin'
+  }
+}
+
+plugins {
+  id 'io.franzbecker.gradle-lombok' version '1.14'
+}
+lombok {
+  version = '1.18.4'
+}
+
+//apply the dependencies defined in the customized plugin and then the sub projects can access them
+apply from: 'dependencies.gradle'
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = projectInfo.sourceCompatibility
+targetCompatibility = projectInfo.targetCompatibility
+
+group = projectInfo.group
+version = projectInfo.version
+archivesBaseName = rootProject.name
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile 'zjtech:websocket-termination-spring-boot-starter:0.1.1'
+  compile libs.'spring-boot-starter-actuator'
+  testCompile libs.'spring-boot-starter-test'
+}
+
+compileJava.dependsOn(processResources)
+
+
+springBoot {
+  mainClassName = 'zjtech.sample.BootApplication'
+}
+
+bootJar {
+//    This is overridden by the mainClassName in springBoot{} and added here for reference purposes.
+  mainClassName = 'zjtech.sample.BootApplication'
+}
+
+
+jar {
+  manifest {
+    attributes('Implementation-Title': rootProject.name,
+        'Implementation-Version': projectInfo.version)
+  }
+}
