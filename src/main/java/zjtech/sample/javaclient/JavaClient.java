@@ -1,10 +1,9 @@
-package javaclient;
+package zjtech.sample.javaclient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.time.Duration;
-import org.junit.Test;
 import org.springframework.web.reactive.socket.WebSocketMessage;
 import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClient;
 import org.springframework.web.reactive.socket.client.WebSocketClient;
@@ -14,7 +13,6 @@ import zjtech.websocket.termination.common.RequestWrapper;
 
 public class JavaClient {
 
-  @Test
   public void runClient() {
     ObjectMapper objectMapper = new ObjectMapper();
 
